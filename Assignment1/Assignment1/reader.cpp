@@ -60,13 +60,14 @@ std::ifstream Reader::read(std::string& path) {
 			return fileStream;
 		}
 	}
-	catch ( ExceptionName  e) {
+	//obtained catch from https://en.cppreference.com/w/cpp/language/try_catch
+	catch (const std::exception& e) {
 		std::cout << "Exception Caught: " <<e << std::endl;
 	}
 	if (fileStream.good()) {
 		while (getline(fileStream, line)) {
 			++lineNum;
-			for (c : line) {
+			for (char& c : line) {
 				if (c == 'A' || c == 'a') {
 					++sum;
 					++totalChar;
