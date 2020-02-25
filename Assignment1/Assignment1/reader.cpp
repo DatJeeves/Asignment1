@@ -1,5 +1,6 @@
 #include "reader.h"
 #include<cmath>
+#include <exception> 
 
 Reader::Reader() {
 
@@ -45,42 +46,42 @@ Reader::Reader() {
 	stDeviation = 0;
 
 }
-ifstream Reader::read(string& path) {
-	ifstream fileStream(path);
+std::ifstream Reader::read(std::string& path) {
+	std::ifstream fileStream(path);
 	if (!fileStream.is_open()) {
-		cout << "Error opening file. Check the name of the file or "
-			<< "check that it exists."<<endl;
+		std::cout << "Error opening file. Check the name of the file or "
+			<< "check that it exists."<<std::endl;
 		return fileStream;
 	}
 	try {
 		//obtained from: https://stackoverflow.com/questions/2390912/checking-for-an-empty-file-in-c
 		if (fileStream.peek() == std::ifstream::traits_type::eof()) {
-			cout << "The file is empty." << endl;
+			std::cout << "The file is empty." << std::endl;
 			return fileStream;
 		}
 	}
-	catch (exception e) {
-		cout << "Exception Caught: " <<e << endl;
+	catch ( ExceptionName  e) {
+		std::cout << "Exception Caught: " <<e << std::endl;
 	}
 	if (fileStream.good()) {
 		while (getline(fileStream, line)) {
 			++lineNum;
-			for (char& c : line) {
-				if (c == "A" || c == "a") {
+			for (c : line) {
+				if (c == 'A' || c == 'a') {
 					++sum;
 					++totalChar;
 					++nucA;
 					if (bigram) {
-						if (prev == "A" || prev == "a") {
+						if (prev == 'A' || prev == 'a') {
 							++bigramAA;
 						}
-						else if (prev == "T" || prev == "t") {
+						else if (prev == 'T' || prev == 't') {
 							++bigramTA;
 						}
-						else if (prev == "C" || prev == "c") {
+						else if (prev == 'C' || prev == 'c') {
 							++bigramCA;
 						}
-						else if (prev == "G" || prev == "g") {
+						else if (prev == 'G' || prev == 'g') {
 							++bigramGA;
 						}
 						bigram = false;
@@ -91,21 +92,21 @@ ifstream Reader::read(string& path) {
 					}
 					
 				}
-				else if (c == "T" || c == "t") {
+				else if (c == 'T' || c == 't') {
 					++sum;
 					++totalChar;
 					++nucT;
 					if (bigram) {
-						if (prev == "A" || prev == "a") {
+						if (prev == 'A' || prev == 'a') {
 							++bigramAT;
 						}
-						else if (prev == "T" || prev == "t") {
+						else if (prev == 'T' || prev == 't') {
 							++bigramTT;
 						}
-						else if (prev == "C" || prev == "c") {
+						else if (prev == 'C' || prev == 'c') {
 							++bigramCT;
 						}
-						else if (prev == "G" || prev == "g") {
+						else if (prev == 'G' || prev == 'g') {
 							++bigramGT;
 						}						
 						bigram = false;
@@ -116,21 +117,21 @@ ifstream Reader::read(string& path) {
 					}				
 					
 				}
-				else if (c == "C" || c == "c") {
+				else if (c == 'C' || c == 'c') {
 					++sum;
 					++totalChar;
 					++nucC;
 					if (bigram) {
-						if (prev == "A" || prev == "a") {
+						if (prev == 'A' || prev == 'a') {
 							++bigramAC;
 						}
-						else if (prev == "T" || prev == "t") {
+						else if (prev == 'T' || prev == 't') {
 							++bigramTC;
 						}
-						else if (prev == "C" || prev == "c") {
+						else if (prev == 'C' || prev == 'c') {
 							++bigramCC;
 						}
-						else if (prev == "G" || prev == "g") {
+						else if (prev == 'G' || prev == 'g') {
 							++bigramGC;
 						}					
 						bigram = false;
@@ -141,21 +142,21 @@ ifstream Reader::read(string& path) {
 					}			
 				
 				}
-				else if (c == "G" || c == "g") {
+				else if (c == 'G' || c == 'g') {
 					++sum;
 					++totalChar;
 					++nucG;
 					if (bigram) {
-						if (prev == "A" || prev == "a") {
+						if (prev == 'A' || prev == 'a') {
 							++bigramAG;
 						}
-						else if (prev == "T" || prev == "t") {
+						else if (prev == 'T' || prev == 't') {
 							++bigramTG;
 						}
-						else if (prev == "C" || prev == "c") {
+						else if (prev == 'C' || prev == 'c') {
 							++bigramCG;
 						}
-						else if (prev == "G" || prev == "g") {
+						else if (prev == 'G' || prev == 'g') {
 							++bigramGG;
 						}						
 						bigram = false;
@@ -174,10 +175,10 @@ ifstream Reader::read(string& path) {
 	
 
 }
-bool Reader::calculations(ifstream& fileStream) {
+bool Reader::calculations(std::ifstream& fileStream) {
 	
 	if (!fileStream.is_open()) {
-		cout << "File Stream is not open. " << endl;
+		std::cout << "File Stream is not open. " << std::endl;
 		//NEED A FILE STREAM CLOSE?
 		return false;
 	}
@@ -195,8 +196,8 @@ bool Reader::calculations(ifstream& fileStream) {
 			//goes through the chars in the line
 			for (char& c : line) {
 				//checks is the char is a nucleotide
-				if (c == "A" || c == "a" || c == "T" || c == "t" ||
-					c == "C" || c == "c" || c == "G" || c == "g") {
+				if (c == 'A' || c == 'a' || c == 'T' || c == 't' ||
+					c == 'C' || c == 'c' || c == 'G' || c == 'g') {
 					//increments the char in the line
 					++charCounter;
 					
@@ -221,48 +222,48 @@ bool Reader::calculations(ifstream& fileStream) {
 }
 void Reader::curve() {
 	//Creates File
-	ofstream output("JeevanAcharya.out");
+	std::ofstream output("JeevanAcharya.out");
 	//Student Info
-	output << "Jeevan Acharya" << endl;
-	output << "2313321" << endl;
-	output << "acharya@chapman.edu" << endl;
+	output << "Jeevan Acharya" << std::endl;
+	output << "2313321" << std::endl;
+	output << "acharya@chapman.edu" << std::endl;
 
 	//Output
-	output << "/n" << "-----------Math Equations-----------" << endl;
-	output << "Sum: " << sum << endl;
-	output << "Mean: " << mean << endl;
-	output << "Varience: " << varience << endl;
-	output << "Standard Deviation" << stDeviation << endl;
-	output << "/n" << "-----------Probabilities------------" << endl;
-	output << "Probability of: " << endl;
-	output << "A: " << (nucA / totalChar) * 100 << "%" << endl;
-	output << "B: " << (nucT / totalChar) * 100 << "%" << endl;
-	output << "C: " << (nucC / totalChar) * 100 << "%" << endl;
-	output << "G: " << (nucG / totalChar) * 100 << "%" << endl;
+	output << "/n" << "-----------Math Equations-----------" << std::endl;
+	output << "Sum: " << sum << std::endl;
+	output << "Mean: " << mean << std::endl;
+	output << "Varience: " << varience << std::endl;
+	output << "Standard Deviation" << stDeviation << std::endl;
+	output << "/n" << "-----------Probabilities------------" << std::endl;
+	output << "Probability of: " << std::endl;
+	output << "A: " << (nucA / totalChar) * 100 << "%" << std::endl;
+	output << "B: " << (nucT / totalChar) * 100 << "%" << std::endl;
+	output << "C: " << (nucC / totalChar) * 100 << "%" << std::endl;
+	output << "G: " << (nucG / totalChar) * 100 << "%" << std::endl;
 
-	output << "/n" << "A_ Bigrams: " << endl;
-	output << "AA" << (bigramAA / totalChar) * 100 << "%" << endl;
-	output << "AC" << (bigramAC / totalChar) * 100 << "%" << endl;
-	output << "AT" << (bigramAT / totalChar) * 100 << "%" << endl;
-	output << "AG" << (bigramAG / totalChar) * 100 << "%" << endl;
+	output << "/n" << "A_ Bigrams: " << std::endl;
+	output << "AA" << (bigramAA / totalChar) * 100 << "%" << std::endl;
+	output << "AC" << (bigramAC / totalChar) * 100 << "%" << std::endl;
+	output << "AT" << (bigramAT / totalChar) * 100 << "%" << std::endl;
+	output << "AG" << (bigramAG / totalChar) * 100 << "%" << std::endl;
 
-	output << "/n" << "T_ Bigrams: " << endl;
-	output << "TA" << (bigramTA / totalChar) * 100 << "%" << endl;
-	output << "TC" << (bigramTC / totalChar) * 100 << "%" << endl;
-	output << "TT" << (bigramTT / totalChar) * 100 << "%" << endl;
-	output << "TG" << (bigramTG / totalChar) * 100 << "%" << endl;
+	output << "/n" << "T_ Bigrams: " << std::endl;
+	output << "TA" << (bigramTA / totalChar) * 100 << "%" << std::endl;
+	output << "TC" << (bigramTC / totalChar) * 100 << "%" << std::endl;
+	output << "TT" << (bigramTT / totalChar) * 100 << "%" << std::endl;
+	output << "TG" << (bigramTG / totalChar) * 100 << "%" << std::endl;
 
-	output << "/n" << "C_ Bigrams: " << endl;
-	output << "CA" << (bigramCA / totalChar) * 100 << "%" << endl;
-	output << "CC" << (bigramCC / totalChar) * 100 << "%" << endl;
-	output << "CT" << (bigramCT / totalChar) * 100 << "%" << endl;
-	output << "CG" << (bigramCG / totalChar) * 100 << "%" << endl;
+	output << "/n" << "C_ Bigrams: " << std::endl;
+	output << "CA" << (bigramCA / totalChar) * 100 << "%" << std::endl;
+	output << "CC" << (bigramCC / totalChar) * 100 << "%" << std::endl;
+	output << "CT" << (bigramCT / totalChar) * 100 << "%" << std::endl;
+	output << "CG" << (bigramCG / totalChar) * 100 << "%" << std::endl;
 
-	output << "/n" << "G_ Bigrams: " << endl;
-	output << "GA" << (bigramGA / totalChar) * 100 << "%" << endl;
-	output << "GC" << (bigramGC / totalChar) * 100 << "%" << endl;
-	output << "GT" << (bigramGT / totalChar) * 100 << "%" << endl;
-	output << "GG" << (bigramGG / totalChar) * 100 << "%" << endl;
+	output << "/n" << "G_ Bigrams: " << std::endl;
+	output << "GA" << (bigramGA / totalChar) * 100 << "%" << std::endl;
+	output << "GC" << (bigramGC / totalChar) * 100 << "%" << std::endl;
+	output << "GT" << (bigramGT / totalChar) * 100 << "%" << std::endl;
+	output << "GG" << (bigramGG / totalChar) * 100 << "%" << std::endl;
 }
 void Reader::reset() {
 	//Nucleotides

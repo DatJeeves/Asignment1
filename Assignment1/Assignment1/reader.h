@@ -7,9 +7,9 @@ class Reader {
 	public:
 		Reader();
 		//To read a file
-		ifstream read(string& path);
+		std::ifstream read(std::string& path);
 		//calculations method
-		bool calculations(ifstream& fileStream);
+		bool calculations(std::ifstream& fileStream);
 		//To create a curve using the math statistics
 		void curve();
 		//Resets Variables
@@ -35,46 +35,43 @@ class Reader {
 	private:
 		//Nucleotides
 		int nucA;
-		int  nucT;
-		int  nucC;
-		int  nucG;
+		int nucT;
+		int nucC;
+		int nucG;
 		//A_ Bigrams
-		int  bigramAA;
-		int  bigramAC;
-		int  bigramAT;
-		int  bigramAG;
+		int bigramAA;
+		int bigramAC;
+		int bigramAT;
+		int bigramAG;
 		//T_ Bigrams
-		int  bigramTA;
-		int  bigramTC;
-		int  bigramTT;
-		int  bigramTG;
+		int bigramTA;
+		int bigramTC;
+		int bigramTT;
+		int bigramTG;
 		//C_ Bigrams
-		int  bigramCA;
-		int  bigramCC;
-		int  bigramCT;
-		int  bigramCG;
+		int bigramCA;
+		int bigramCC;
+		int bigramCT;
+		int bigramCG;
 		//G_ Bigrams
-		int  bigramGA;
-		int  bigramGC;
-		int  bigramGT;
-		int  bigramGG;
+		int bigramGA;
+		int bigramGC;
+		int bigramGT;
+		int bigramGG;
 		//File Reading Vars
-		int  lengthDNA;
-		int  lineNum;
-		string line;
+		int lengthDNA;
+		int lineNum;
+		std::string line;
 		char c;
 		char prev;
 		bool bigram;
 		int charCounter;
 		int totalChar;
 		//Mathmatical Vars
-		int  sum;
-		double  mean;
-		double  varience;
+		int sum;
+		double mean;
+		double varience;
 		double strLengthMinusMean;
-		double  stDeviation;
-
-	
-
+		double stDeviation;
 };
 #endif
