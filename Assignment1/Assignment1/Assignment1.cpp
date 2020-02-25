@@ -10,15 +10,23 @@ int main(int argc, char** argv) {
 	string path = " ";
 	char choice = ' ';
 	bool run = true;
+	bool a = false;
 	while (run) {
 		cout << "Enter the path to your file to read (with the .txt attatched): ";
 		cin >> path;
 		Reader* r = new Reader();
-		if (r->calculations(r->read(path)) == false) {
+		ifstream mainstream = r->read(path);
+		a = r->calculations(mainstream);
+		mainstream.close();
+		if ( a == false) {
 			cout << "Calculations not preformed correctly"<<endl;
 		}
-		else {
+		else if(a == true) {
 			cout << "Calculations performed correctly" << endl;
+		}
+		else {
+			cout << "Calculation did not return a valid value" << endl;
+			break;
 		}
 		r->curve();
 		
@@ -29,12 +37,12 @@ int main(int argc, char** argv) {
 			cin >> choice;
 			if (choice == 'n' || choice == 'N') {
 				run = false;
-				false;
+				break;
 			}
 			else if (choice == 'y' || choice == 'Y') {
 				r->reset();
 				run = true;
-				false;
+				break;
 			}
 			else {
 				cout << "You did not enter a valid responce."<<endl;
